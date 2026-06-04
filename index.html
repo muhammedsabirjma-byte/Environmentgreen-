@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.3.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-size: 10pt; font-family: "Liberation Mono", monospace; background: transparent }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ml&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Environment Day Photo Campaign&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h2 { color: #2e7d32; }
+        .upload-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .upload-btn:hover { background-color: #45a049; }
+        #canvasContainer {
+            margin: 20px auto;
+            max-width: 100%;
+            width: 360px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        canvas {
+            width: 100%;
+            display: block;
+        }
+        #downloadBtn {
+            background-color: #1e88e5;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            display: none;
+        }
+        #downloadBtn:hover { background-color: #1565c0; }
+        input[type=&quot;file&quot;] { display: none; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h2&gt;World Environment Day Campaign&lt;/h2&gt;
+    &lt;p&gt;<span lang="hi-IN">നിങ്ങളുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്ത് കാമ്പയിൻ ഫ്രെയിം ഡൗൺലോഡ് ചെയ്യൂ</span>!&lt;/p&gt;
+
+    &lt;label class=&quot;upload-btn&quot;&gt;
+        <span lang="hi-IN">ഫോട്ടോ തിരഞ്ഞെടുക്കുക</span>
+        &lt;input type=&quot;file&quot; id=&quot;imageLoader&quot; accept=&quot;image/*&quot;&gt;
+    &lt;/label&gt;
+
+    &lt;div id=&quot;canvasContainer&quot;&gt;
+        &lt;canvas id=&quot;imageCanvas&quot;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+
+    &lt;button id=&quot;downloadBtn&quot;&gt;<span lang="hi-IN">ഡൗൺലോഡ് ചെയ്യുക</span>&lt;/button&gt;
+
+    &lt;script&gt;
+        const imageLoader = document.getElementById('imageLoader');
+        const canvas = document.getElementById('imageCanvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const canvasContainer = document.getElementById('canvasContainer');
+
+        const frameImg = new Image();
+        frameImg.src = 'frame.png'; 
+
+        let userImg = new Image();
+
+        imageLoader.addEventListener('change', handleImage, false);
+
+        function handleImage(e) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                userImg.onload = function() {
+                    canvas.width = frameImg.width;
+                    canvas.height = frameImg.height;
+
+                    // <span lang="hi-IN">ഫ്രെയിമിലെ പച്ച ചതുരത്തിന്റെ ഏകദേശ സ്ഥാനം ക്രമീകരിക്കുന്നത് </span>(<span lang="hi-IN">നിങ്ങളുടെ ചിത്രത്തിന് അനുസരിച്ച് മാറ്റാം</span>)
+                    let targetX = canvas.width * 0.05;   
+                    let targetY = canvas.height * 0.61;  
+                    let targetWidth = canvas.width * 0.42; 
+                    let targetHeight = canvas.height * 0.25; 
+
+                    ctx.drawImage(userImg, targetX, targetY, targetWidth, targetHeight);
+                    ctx.drawImage(frameImg, 0, 0);
+
+                    canvasContainer.style.display = 'block';
+                    downloadBtn.style.display = 'inline-block';
+                }
+                userImg.src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.download = 'environment_day_poster.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</body>
+</html>
